@@ -2,24 +2,14 @@ const express  =  require("express");
 
 const router  =  express.Router();
 
-const {createProfile} =  require("../controllers/createProfile");
-const{login} =  require("../controllers/login")
-const{auth} =  require("../middleware/auth")
+const{auth}   =  require("../middleware/auth")
+const{getProfile ,updateProfile , deleteProfile  } = require("../controllers/profileApis")
 
 
-router.post('/createProfile' ,  createProfile) ;
-router.post('/login' , login )
+router.get("/getProfile" ,  auth , getProfile)
 
 
-router.get("/auth" ,  auth , (req  , res)=>{
-
-    return res.status(200).json({
-        message: "middle ware executed successfully",
-      
-      })
-
-       
-     
-})
+router.patch('/updateprofile' , auth , updateProfile );
+router.post('/deleteprofile' , auth ,deleteProfile )
 
 module.exports = router ;

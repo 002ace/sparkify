@@ -5,16 +5,25 @@ const app = express();
 app.use(express.json())
 app.use(cookiParser())
 
-const  createProfile  =  require("../src/routes/profileRoute");
-const login =  require("../src/routes/profileRoute");
-const auth  =  require("../src/routes/profileRoute");
-app.use('/api' ,  createProfile );
+const  signup  =  require("../src/routes/authRoutes")
+const  login = require("../src/routes/authRoutes")
+const  logout =  require("../src/routes/authRoutes")
+ 
+app.use('/api' , signup );
 
 app.use("/api" , login);
 
-app.use("/api" , auth);
+app.use("/api" , logout);
 
 
+//profile
+
+const getprofile =  require("../src/routes/profileRoute");
+const updateprofile = require("../src/routes/profileRoute");
+app.use("/api" , getprofile);
+app.use("/api" , updateprofile);
+
+ 
 
 
 
