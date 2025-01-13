@@ -23,6 +23,13 @@ const updateprofile = require("../src/routes/profileRoute");
 app.use("/api" , getprofile);
 app.use("/api" , updateprofile);
 
+
+//connection
+
+const connection =  require("../src/routes/connectionRoute");
+app.use("/api" , connection);
+
+
  
 
 
