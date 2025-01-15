@@ -15,7 +15,7 @@ exports.createProfile  = async(req ,  res)=>{
                   lastName:z.string().min(3).max(100),
                   age :  z.number().min(18).max(50),
                   gender : z.enum(["male", "female", "other"]),
-                  password:z.string().min(6).max(50),
+                  password:z.string().min(4).max(50),
                   skills: z.array(z.string()).optional(),
                   about: z.string().optional(),
                   

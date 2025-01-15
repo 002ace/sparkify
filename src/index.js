@@ -27,7 +27,21 @@ app.use("/api" , updateprofile);
 //connection
 
 const connection =  require("../src/routes/connectionRoute");
+
+const accepteOrReject =  require("../src/routes/connectionRoute");
 app.use("/api" , connection);
+app.use("/api", accepteOrReject)
+
+
+//user
+
+const freindlist  =  require("../src/routes/userRoutes");
+const  feedapi =  require("../src/routes/userRoutes");
+const requestreceived =  require("../src/routes/userRoutes");
+
+app.use("/api" , freindlist);
+app.use("/api" , feedapi);
+app.use("/api" , requestreceived);
 
 
  

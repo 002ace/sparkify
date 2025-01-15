@@ -37,14 +37,26 @@ exports.freindListDetails = async(req,res) =>{
 
                const logedInUserId =  req.user.id ;
                
-               const freindList   =  await Connection.find({$or:[{fromUserId:logedInUserId , status:'accepted'} , {toUserId:logedInUserId , status:'accepted'}]});
+               const freindList   =  await Connection.find({
+                                        $or:[{fromUserId:logedInUserId , status:'accepted'} ,
+                                           {toUserId:logedInUserId , status:'accepted'}]}).populate("fromUserId" , ["firstName" , "lastName"]).populate("toUserId" , ["firstName" , "lastName"])
+
+              
+               const data =  freindList.map((row)=>{
+                  if (row.fromUserId._id.toString() === logedInUserId.toString()) {
+                        return row.toUserId; // Return `toUserId` if `fromUserId` matches
+                    }
+                    return row.fromUserId;
+               }
+                                        )
+                 
 
                return res.status(200).json({
                    
                      message:"freind list details",
-                     data:freindList
+                     data:data,
 
-               }).populate("fromUserId" , "toUserId", ["firstName" , "LastName"])
+               })
  
        }
        catch(error)
@@ -67,14 +79,15 @@ exports.feedApi  =  async(req, res) =>{
         {    
                 const  logedInUserId =  req.user.id ;
                 const  page =  parseInt(req.params.page) || 1;
-                const limit  =  parseInt(req.params.limit) || 10 ;
+                let limit  =  parseInt(req.params.limit) || 10 ;
 
                 limit  =  limit>50 ? 50 : limit;
                 const skip =  (page-1)*limit;
 
-                const findfeed =  await  Connection.find({$or:[{fromUserId:logedInUserId} , {toUserId:logedInUserId}]}).select("fromUserId" , "logedInUserId");
+                const findfeed =  await  Connection.find({$or:[{fromUserId:logedInUserId } , {toUserId:logedInUserId }]}).select("fromUserId toUserId");
 
                 const hideUserFromFeed  =  new Set();
+
 
                 findfeed.forEach((req)=>{
                       hideUserFromFeed.add(req.fromUserId.toString());
@@ -92,7 +105,8 @@ exports.feedApi  =  async(req, res) =>{
                 return  res.status(200).json({
                     
                          message:"feed result",
-                         data:feedResult
+                        //  data:feedResult
+                        data:findfeed
                         
                     
                 })
@@ -108,3 +122,6 @@ exports.feedApi  =  async(req, res) =>{
   
         }
 }
+
+
+

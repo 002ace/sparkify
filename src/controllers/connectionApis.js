@@ -62,7 +62,7 @@ exports.connection =  async(req , res) =>{
               const user  =  await Connection.create({fromUserId , toUserId , status})
 
               return res.status(200).json({
-                message: "Connection created successfully=",
+                message: "Connection created successfully",
                 user
               })
 
@@ -92,6 +92,8 @@ exports.accepteOrReject  =  async(req, res)=>{
                 const loginUser =  req.user ;
                 const{status  , requestId } =  req.params ;
 
+                console.log("app chal rahe ho ya nhi")
+
                 const  findDetails = await Connection.findById(requestId);
 
                 if(!findDetails)
@@ -106,7 +108,7 @@ exports.accepteOrReject  =  async(req, res)=>{
                 {
                       res.status(400).json({
                             
-                        message : "Can not send  request"
+                        message : "Canc not send  request"
                    })
                 }
 
@@ -128,11 +130,11 @@ exports.accepteOrReject  =  async(req, res)=>{
                                               
                                               _id : requestId,
                                               toUserId:loginUser.id,
-                                              // status:"interested"
-                                              status: { $in: ["interested"] }, 
+                                              status:"interested"
+                                              // status: { $in: ["interested"] }, 
                                               // {status : status}
 
-                                           } ,  { $set: { "status.0": status } } , {new :  true} )
+                                           } ,  {status : status} , {new :  true} )
                 if(!connectionRequest)
                 {
                        return res.status(400).json({
