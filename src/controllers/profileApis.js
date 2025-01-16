@@ -2,7 +2,7 @@ const {z} =  require("zod");
 const  User  =  require("../Model/User");
 
 
-
+//get profile 
 exports.getProfile   =  async(req, res)=>{
 
        try
