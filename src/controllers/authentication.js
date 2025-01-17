@@ -120,7 +120,7 @@ exports.login =  async(req, res) =>{
                         httpOnly : true
                     }
 
-                    res.cookie('token' , token , option).status(200).json({
+                    res.cookie('token' , token , option).status(200).send({
                         success:true,
                         token,
                         user,
