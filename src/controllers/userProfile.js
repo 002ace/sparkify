@@ -74,6 +74,8 @@ exports.freindListDetails = async(req,res) =>{
 
 //feed api 
 
+const user_data  = ["firstName" , "lastName" , "age" , "gender" , "skills" , "about" , "imageUrl"];
+
 exports.feedApi  =  async(req, res) =>{
         try
         {    
@@ -100,13 +102,13 @@ exports.feedApi  =  async(req, res) =>{
                                          {_id : {$nin : Array.from(hideUserFromFeed)}},
                                          {_id : {$ne : logedInUserId}}
 
-                                     ]}).skip(skip).limit(limit);
+                                     ]}).select(user_data).skip(skip).limit(limit);
 
                 return  res.status(200).json({
                     
                          message:"feed result",
                         //  data:feedResult
-                        data:findfeed
+                        data:feedResult
                         
                     
                 })

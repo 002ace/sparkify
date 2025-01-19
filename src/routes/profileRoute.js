@@ -6,7 +6,7 @@ const{auth}   =  require("../middleware/auth")
 const{getProfile ,updateProfile , deleteProfile  } = require("../controllers/profileApis")
 
 
-router.get("/getProfile" ,  auth , getProfile)
+router.get("/getprofile" ,  auth , getProfile)
 
 
 router.patch('/updateprofile' , auth , updateProfile );

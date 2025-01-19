@@ -10,7 +10,7 @@ exports.auth  = async(req,res,next)=>{
 
               if(!token)
               {  
-                  return res.status(400).json({
+                  return res.status(401).json({
                     message: "token does not exist",
                     
                   })
