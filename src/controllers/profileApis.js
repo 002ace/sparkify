@@ -37,17 +37,20 @@ exports.updateProfile  = async(req ,  res)=>{
 
         try{
             
+           console.log("req-body")  
+           console.log(req.body);
+         
            const requiredBody  =  z.object({
                  
                   firstName : z.string().min(3).max(100).optional(),
                   lastName:z.string().min(3).max(100).optional(),
                   age :  z.number().min(18).max(50).optional(),
                   gender : z.enum(["male", "female", "other"]).optional(),
-                  skills: z.array(z.string()).optional().optional(),
-                  about: z.string().optional().optional(),
+                  skills: z.array(z.string()).optional(),
+                  about: z.string().optional()
                   
             }).strict();
-
+            
             const userDetails  =   req.user ;
             const userId  =  userDetails.id;
 

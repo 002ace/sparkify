@@ -39,7 +39,7 @@ exports.freindListDetails = async(req,res) =>{
                
                const freindList   =  await Connection.find({
                                         $or:[{fromUserId:logedInUserId , status:'accepted'} ,
-                                           {toUserId:logedInUserId , status:'accepted'}]}).populate("fromUserId" , ["firstName" , "lastName"]).populate("toUserId" , ["firstName" , "lastName"])
+                                           {toUserId:logedInUserId , status:'accepted'}]}).populate("fromUserId" , ["firstName" , "lastName" ,  "age" , "gender" ,  "skills" , "about" , "imageUrl"]).populate("toUserId" , ["firstName" , "lastName" ,  "age" , "gender" ,  "skills" , "about" , "imageUrl"])
 
               
                const data =  freindList.map((row)=>{
