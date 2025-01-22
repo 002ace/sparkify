@@ -92,13 +92,13 @@ exports.accepteOrReject  =  async(req, res)=>{
                 const loginUser =  req.user ;
                 const{status  , requestId } =  req.params ;
 
-                console.log("app chal rahe ho ya nhi")
+             
 
                 const  findDetails = await Connection.findById(requestId);
 
                 if(!findDetails)
                 {
-                      res.status(400).json({
+                      return  res.status(400).json({
                             
                            message : "data not present with id"
                       })
@@ -106,7 +106,7 @@ exports.accepteOrReject  =  async(req, res)=>{
 
                 if(loginUser.id === findDetails.toUserId)
                 {
-                      res.status(400).json({
+                     return res.status(400).json({
                             
                         message : "Canc not send  request"
                    })
@@ -146,6 +146,7 @@ exports.accepteOrReject  =  async(req, res)=>{
 
                 return res.status(200).json({
                      message:"connection updated succesfully",
+                     data:connectionRequest
 
                       
                 })

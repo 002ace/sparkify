@@ -11,7 +11,7 @@ exports.requestReceived  =  async(req  , res) =>{
 
               const freindListDetails =  await Connection.find({toUserId:logedInUserId,
                                                      status:"interested"
-                                                 }).populate("fromUserId" , ["firstName" , "lastName"])
+                                                 }).populate("fromUserId" ,  ["firstName" , "lastName" ,  "age" , "gender" ,  "skills" , "about" , "imageUrl"])
 
              return res.status(200).json({
                   message:"detailsed fetch succeessfully",
